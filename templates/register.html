@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+
+{% block title %}Register - Personal Finance Manager{% endblock %}
+
+{% block extra_head %}
+<style>
+    .register-container {
+        margin-top: 2rem;
+        margin-bottom: 4rem;
+    }
+    .register-card {
+        border: none;
+        border-radius: var(--radius);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    .register-header {
+        background: var(--gradient-primary);
+        padding: 2rem;
+        text-align: center;
+    }
+    .register-logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+    }
+    .register-logo i {
+        font-size: 2.2rem;
+        color: white;
+    }
+    .register-body {
+        padding: 2rem;
+    }
+    .input-with-icon {
+        position: relative;
+    }
+    .input-with-icon i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--gray);
+    }
+    .input-with-icon input, .input-with-icon select {
+        padding-left: 45px;
+    }
+    .btn-register {
+        padding: 0.8rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        letter-spacing: 0.5px;
+    }
+    .password-strength {
+        height: 5px;
+        border-radius: 10px;
+        margin-top: 0.5rem;
+        transition: all 0.3s;
+    }
+    .password-strength-text {
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+    }
+    .password-requirements {
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+    }
+    .requirement-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.25rem;
+    }
+    .requirement-item i {
+        margin-right: 0.5rem;
+        font-size: 0.75rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container register-container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card register-card">
+                <div class="register-header">
+                    <div class="register-logo">
+                        <i class="bi bi-person-plus"></i>
+                    </div>
+                    <h2 class="text-white mb-1">Create Account</h2>
+                    <p class="text-white-50 mb-0">Join us and start managing your finances</p>
+                </div>
+                <div class="register-body">
+                    <form method="post" action="{{ url_for('register') }}" id="registerForm">
+                        <div class="mb-3">
+                            <label for="username" class="form-label fw-bold mb-2">Username</label>
+                            <div class="input-with-icon">
+                                <i class="bi bi-person"></i>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Choose a username" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-bold mb-2">Email</label>
+                            <div class="input-with-icon">
+                                <i class="bi bi-envelope"></i>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label fw-bold mb-2">Password</label>
+                            <div class="input-with-icon">
+                                <i class="bi bi-lock"></i>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Create a strong password" required>
+                            </div>
+                            <div class="password-strength" id="passwordStrength"></div>
+                            <div class="password-strength-text" id="passwordStrengthText"></div>
+                            
+                            <div class="password-requirements mt-2">
+                                <div class="requirement-item">
+                                    <i class="bi bi-circle" id="length-check"></i>
+                                    <span>At least 8 characters</span>
+                                </div>
+                                <div class="requirement-item">
+                                    <i class="bi bi-circle" id="uppercase-check"></i>
+                                    <span>At least one uppercase letter</span>
+                                </div>
+                                <div class="requirement-item">
+                                    <i class="bi bi-circle" id="lowercase-check"></i>
+                                    <span>At least one lowercase letter</span>
+                                </div>
+                                <div class="requirement-item">
+                                    <i class="bi bi-circle" id="number-check"></i>
+                                    <span>At least one number</span>
+                                </div>
+                                <div class="requirement-item">
+                                    <i class="bi bi-circle" id="special-check"></i>
+                                    <span>At least one special character</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="currency" class="form-label fw-bold mb-2">Preferred Currency</label>
+                            <div class="input-with-icon">
+                                <i class="bi bi-currency-exchange"></i>
+                                <select class="form-select" id="currency" name="currency" required>
+                                    {% for code, name in currencies.items() %}
+                                    <option value="{{ code }}" {% if code == 'USD' %}selected{% endif %}>{{ code }} - {{ name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="terms" required>
+                            <label class="form-check-label" for="terms">I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> and <a href="#" class="text-decoration-none">Privacy Policy</a></label>
+                        </div>
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary btn-register" id="registerBtn" disabled>Create Account</button>
+                        </div>
+                    </form>
+                    <div class="text-center">
+                        <p class="mb-0">Already have an account? <a href="{{ url_for('login') }}" class="fw-bold text-decoration-none">Sign in</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordInput = document.getElementById('password');
+        const passwordStrength = document.getElementById('passwordStrength');
+        const passwordStrengthText = document.getElementById('passwordStrengthText');
+        const registerBtn = document.getElementById('registerBtn');
+        const termsCheckbox = document.getElementById('terms');
+        
+        // Password requirement checks
+        const lengthCheck = document.getElementById('length-check');
+        const uppercaseCheck = document.getElementById('uppercase-check');
+        const lowercaseCheck = document.getElementById('lowercase-check');
+        const numberCheck = document.getElementById('number-check');
+        const specialCheck = document.getElementById('special-check');
+        
+        // Password strength requirements
+        const hasLength = password => password.length >= 8;
+        const hasUppercase = password => /[A-Z]/.test(password);
+        const hasLowercase = password => /[a-z]/.test(password);
+        const hasNumber = password => /[0-9]/.test(password);
+        const hasSpecial = password => /[!@#$%^&*(),.?":{}|<>]/.test(password);
+        
+        // Update password strength meter
+        function updatePasswordStrength(password) {
+            let strength = 0;
+            let feedback = '';
+            
+            // Check each criteria
+            if (hasLength(password)) {
+                strength += 1;
+                lengthCheck.className = 'bi bi-check-circle-fill text-success';
+            } else {
+                lengthCheck.className = 'bi bi-circle text-muted';
+            }
+            
+            if (hasUppercase(password)) {
+                strength += 1;
+                uppercaseCheck.className = 'bi bi-check-circle-fill text-success';
+            } else {
+                uppercaseCheck.className = 'bi bi-circle text-muted';
+            }
+            
+            if (hasLowercase(password)) {
+                strength += 1;
+                lowercaseCheck.className = 'bi bi-check-circle-fill text-success';
+            } else {
+                lowercaseCheck.className = 'bi bi-circle text-muted';
+            }
+            
+            if (hasNumber(password)) {
+                strength += 1;
+                numberCheck.className = 'bi bi-check-circle-fill text-success';
+            } else {
+                numberCheck.className = 'bi bi-circle text-muted';
+            }
+            
+            if (hasSpecial(password)) {
+                strength += 1;
+                specialCheck.className = 'bi bi-check-circle-fill text-success';
+            } else {
+                specialCheck.className = 'bi bi-circle text-muted';
+            }
+            
+            // Set strength meter color and text
+            if (password === '') {
+                passwordStrength.style.width = '0%';
+                passwordStrength.style.backgroundColor = '#e0e0e0';
+                passwordStrengthText.textContent = '';
+            } else if (strength === 1) {
+                passwordStrength.style.width = '20%';
+                passwordStrength.style.backgroundColor = '#d90429'; // Very weak
+                passwordStrengthText.textContent = 'Very Weak';
+                passwordStrengthText.className = 'password-strength-text text-danger';
+            } else if (strength === 2) {
+                passwordStrength.style.width = '40%';
+                passwordStrength.style.backgroundColor = '#ef8354'; // Weak
+                passwordStrengthText.textContent = 'Weak';
+                passwordStrengthText.className = 'password-strength-text text-warning';
+            } else if (strength === 3) {
+                passwordStrength.style.width = '60%';
+                passwordStrength.style.backgroundColor = '#ffaa00'; // Medium
+                passwordStrengthText.textContent = 'Medium';
+                passwordStrengthText.className = 'password-strength-text text-warning';
+            } else if (strength === 4) {
+                passwordStrength.style.width = '80%';
+                passwordStrength.style.backgroundColor = '#8ac926'; // Good
+                passwordStrengthText.textContent = 'Good';
+                passwordStrengthText.className = 'password-strength-text text-success';
+            } else if (strength === 5) {
+                passwordStrength.style.width = '100%';
+                passwordStrength.style.backgroundColor = '#38b000'; // Strong
+                passwordStrengthText.textContent = 'Strong';
+                passwordStrengthText.className = 'password-strength-text text-success';
+            }
+            
+            // Enable/disable register button
+            checkFormValidity();
+        }
+        
+        // Check all form fields validity
+        function checkFormValidity() {
+            const password = passwordInput.value;
+            const isPasswordStrong = hasLength(password) && hasUppercase(password) && 
+                                   hasLowercase(password) && hasNumber(password) && 
+                                   hasSpecial(password);
+            
+            registerBtn.disabled = !(isPasswordStrong && termsCheckbox.checked);
+        }
+        
+        // Add event listeners
+        passwordInput.addEventListener('input', function() {
+            updatePasswordStrength(this.value);
+        });
+        
+        termsCheckbox.addEventListener('change', function() {
+            checkFormValidity();
+        });
+        
+        // Initialize password strength meter
+        updatePasswordStrength('');
+    });
+</script>
+{% endblock %} 

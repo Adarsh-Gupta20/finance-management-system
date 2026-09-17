@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Account - Personal Finance Manager{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h3 class="card-title mb-0">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>Delete Account
+                </h3>
+            </div>
+            <div class="card-body p-4">
+                <div class="alert alert-warning">
+                    <h4 class="alert-heading">
+                        <i class="bi bi-exclamation-circle me-2"></i>Warning!
+                    </h4>
+                    <p>This action <strong>cannot be undone</strong>. This will permanently delete:</p>
+                    <ul>
+                        <li>Your user account</li>
+                        <li>All your transactions</li>
+                        <li>All your financial goals</li>
+                        <li>All other personal data associated with your account</li>
+                    </ul>
+                </div>
+                
+                <form method="post" action="{{ url_for('delete_account') }}" class="mt-4">
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Confirm your password to delete your account</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash me-1"></i>Delete My Account
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Financial Goal - Personal Finance Manager{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0"><i class="bi bi-trophy me-2"></i>Create New Financial Goal</h3>
+            </div>
+            <div class="card-body p-4">
+                <form method="post" action="{{ url_for('add_goal') }}">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="name" class="form-label fw-bold">Goal Name</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="E.g., Emergency Fund, House Down Payment" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="category" class="form-label fw-bold">Category</label>
+                                <select class="form-select" id="category" name="category" required>
+                                    <option value="" disabled selected>Select a category</option>
+                                    {% for category in categories %}
+                                    <option value="{{ category }}">{{ category }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="target_amount" class="form-label fw-bold">Target Amount ({{ user.preferred_currency }})</label>
+                                <input type="number" min="0" step="0.01" class="form-control" id="target_amount" name="target_amount" placeholder="How much do you need to save?" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="current_amount" class="form-label fw-bold">Initial Savings ({{ user.preferred_currency }})</label>
+                                <input type="number" min="0" step="0.01" class="form-control" id="current_amount" name="current_amount" placeholder="How much have you already saved?" value="0">
+                                <div class="form-text">Leave as 0 if you're starting from scratch</div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="deadline" class="form-label fw-bold">Target Deadline (Optional)</label>
+                                <input type="date" class="form-control" id="deadline" name="deadline" min="{{ today }}">
+                                <div class="form-text">When do you aim to accomplish this goal?</div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <div class="mb-4">
+                                <label for="description" class="form-label fw-bold">Description (Optional)</label>
+                                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Add more details about your goal"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="{{ url_for('goals') }}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save me-1"></i>Save Goal
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Goal Tips -->
+        <div class="card mt-4">
+            <div class="card-header bg-light">
+                <h5 class="card-title mb-0"><i class="bi bi-lightbulb me-2 text-warning"></i>Tips for Setting Financial Goals</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <strong>Be Specific:</strong> Define exactly what you're saving for
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <strong>Make it Measurable:</strong> Set a clear target amount
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <strong>Set a Timeline:</strong> Having a deadline creates urgency
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <strong>Start Small:</strong> Begin with achievable goals to build momentum
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <strong>Track Progress:</strong> Update your progress regularly to stay motivated
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <strong>Celebrate Milestones:</strong> Reward yourself when reaching important points
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

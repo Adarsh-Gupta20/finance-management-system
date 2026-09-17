@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Personal Finance Manager - Home{% endblock %}
+
+{% block content %}
+<div class="row align-items-center py-5">
+    <!-- Text content -->
+    <div class="col-lg-6">
+        <h1 class="display-4 fw-bold mb-4">Take Control of Your Finances</h1>
+        <p class="lead mb-4">A simple yet powerful personal finance management tool to help you track income, expenses, and savings. Customize with your preferred currency.</p>
+        <div class="d-grid gap-2 d-md-flex">
+            <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg px-4 me-md-2">Get Started</a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline-secondary btn-lg px-4">Log In</a>
+        </div>
+    </div>
+    <!-- Image -->
+    <div class="col-lg-6 mt-5 mt-lg-0 text-center">
+        <img src="https://cdn.pixabay.com/photo/2017/12/17/14/12/bitcoin-3024279_960_720.jpg" class="img-fluid rounded shadow" alt="Finance illustration" style="max-height: 400px;">
+    </div>
+</div>
+
+<hr class="my-5">
+
+<!-- Features section -->
+<div class="row g-4 py-5">
+    <h2 class="display-6 fw-bold text-center mb-4">Key Features</h2>
+    
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <div class="feature-icon bg-primary bg-gradient text-white rounded-3 mb-3 p-3 d-inline-block">
+                    <i class="bi bi-currency-exchange"></i>
+                </div>
+                <h3 class="card-title">Multi-Currency Support</h3>
+                <p class="card-text">Choose your preferred currency and seamlessly convert between currencies anytime.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <div class="feature-icon bg-primary bg-gradient text-white rounded-3 mb-3 p-3 d-inline-block">
+                    <i class="bi bi-bar-chart"></i>
+                </div>
+                <h3 class="card-title">Financial Insights</h3>
+                <p class="card-text">Visualize your spending habits and track your financial progress over time.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <div class="feature-icon bg-primary bg-gradient text-white rounded-3 mb-3 p-3 d-inline-block">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+                <h3 class="card-title">Secure & Private</h3>
+                <p class="card-text">Your financial data is securely stored and accessible only to you.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="my-5">
+
+<!-- How it works section -->
+<div class="row py-5">
+    <h2 class="display-6 fw-bold text-center mb-5">How It Works</h2>
+    
+    <div class="col-md-3 text-center">
+        <div class="rounded-circle bg-light p-4 mx-auto mb-3" style="width: 100px; height: 100px;">
+            <i class="bi bi-person-plus text-primary" style="font-size: 2.5rem;"></i>
+        </div>
+        <h4>Create Account</h4>
+        <p>Sign up and choose your preferred currency.</p>
+    </div>
+    
+    <div class="col-md-3 text-center">
+        <div class="rounded-circle bg-light p-4 mx-auto mb-3" style="width: 100px; height: 100px;">
+            <i class="bi bi-plus-circle text-primary" style="font-size: 2.5rem;"></i>
+        </div>
+        <h4>Add Transactions</h4>
+        <p>Record your income and expenses with categories.</p>
+    </div>
+    
+    <div class="col-md-3 text-center">
+        <div class="rounded-circle bg-light p-4 mx-auto mb-3" style="width: 100px; height: 100px;">
+            <i class="bi bi-graph-up text-primary" style="font-size: 2.5rem;"></i>
+        </div>
+        <h4>Track Progress</h4>
+        <p>Monitor your financial health through reports and charts.</p>
+    </div>
+    
+    <div class="col-md-3 text-center">
+        <div class="rounded-circle bg-light p-4 mx-auto mb-3" style="width: 100px; height: 100px;">
+            <i class="bi bi-gear text-primary" style="font-size: 2.5rem;"></i>
+        </div>
+        <h4>Customize</h4>
+        <p>Change currency and adapt to your financial needs.</p>
+    </div>
+</div>
+{% endblock %} 
